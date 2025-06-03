@@ -1,4 +1,4 @@
 image:
-  repository: azeshion21/demo-app
+  repository: hapizaa/my-app
   tag: latest
 replicaCount: 1
