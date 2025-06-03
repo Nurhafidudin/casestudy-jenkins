@@ -34,8 +34,12 @@ pipeline {
           passwordVariable: 'PASS'
         )]) {
           script {
-           withCredentials([string(credentialsId: 'docker-pass', variable: 'PASS')]) {
-  sh 'echo "$PASS" | docker login -u hapizaa --password-stdin'
+          withCredentials([usernamePassword(
+  credentialsId: "docker-hub",
+  usernameVariable: 'USER',
+  passwordVariable: 'PASS'
+)]) {
+  sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
 }
         }
       }
