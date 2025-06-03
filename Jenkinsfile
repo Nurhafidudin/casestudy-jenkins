@@ -47,18 +47,15 @@ pipeline {
     }
     stage('Deploy to Kubernetes (Helm)') {
       steps {
-        withCredentials([file(credentialsId: "${KUBECONFIG_CRED}", variable: 'KUBE_FILE')]) {
-          script {
-            echo "🚀 Deploying to Kubernetes via Helm..."
-            sh '''
-              export KUBECONFIG=$KUBE_FILE
-              helm upgrade --install $HELM_RELEASE ./helm \
-                --set image.repository=$IMAGE \
-                --set image.tag=$TAG \
-                --namespace $NAMESPACE --create-namespace
-            '''
-          }
-        }
+       withCredentials([file(credentialsId: 'kubeconfig-dev', variable: 'KUBECONFIG')]) {
+    sh '''
+      echo "Deploying to Kubernetes via Helm..."
+      helm upgrade --install casestudy-jenkins ./helm \
+        --set image.repository=hapizaa/my-app \
+        --set image.tag=latest \
+        --namespace default --create-namespace
+    '''
+}
       }
     }
   }
