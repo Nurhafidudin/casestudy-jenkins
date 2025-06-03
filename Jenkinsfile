@@ -34,16 +34,13 @@ pipeline {
           passwordVariable: 'PASS'
         )]) {
           script {
-            echo "📦 Pushing image to DockerHub..."
-            sh """
-              echo "$PASS" | docker login -u "$USER" --password-stdin
-              docker push ${IMAGE}:${TAG}
-            """
-          }
+           withCredentials([string(credentialsId: 'docker-pass', variable: 'PASS')]) {
+  sh 'echo "$PASS" | docker login -u hapizaa --password-stdin'
+}
         }
       }
     }
-
+]
     stage('Deploy to Kubernetes (Helm)') {
       steps {
         withCredentials([file(credentialsId: "${KUBECONFIG_CRED}", variable: 'KUBE_FILE')]) {
