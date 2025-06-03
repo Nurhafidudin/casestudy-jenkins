@@ -5,7 +5,7 @@ pipeline {
     IMAGE = "hapizaa/my-app"
     TAG = "latest"
     DOCKER_CRED = "docker-hub"
-    KUBECONFIG_CRED = "docker-hub"
+    KUBECONFIG_CRED = "kubeconfig-dev"
     NAMESPACE = "default"
     HELM_RELEASE = "casestudy-jenkins"
   }
