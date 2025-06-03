@@ -40,7 +40,7 @@ pipeline {
         }
       }
     }
-]
+    }
     stage('Deploy to Kubernetes (Helm)') {
       steps {
         withCredentials([file(credentialsId: "${KUBECONFIG_CRED}", variable: 'KUBE_FILE')]) {
